@@ -1,0 +1,96 @@
+<?php
+
+/* This file is part of file-browser.
+ *
+ * Copyright (C)
+ *  2018 Alexander Haase <ahaase@alexhaase.de>
+ *
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+/* This flle contains the basic PHP CS Fixer coding convention configuration for
+ * file-browser.
+ *
+ * NOTICE: PHP CS Fixer is not capable of handling all required rules, so all
+ *         developers need to keep an eye on the code they're writing to ensure
+ *         a good code quality.
+ *
+ *         Additional rules are:
+ *          - A line MUST NOT contain more than 80 characters.
+ *          - The indentation is 4 spaces.
+ */
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        /* The coding standard is based on PSR1, PSR2 and Symfony with the
+         * following modifications. */
+        '@PSR1' => true,
+        '@PSR2' => true,
+        '@Symfony' => true,
+        '@DoctrineAnnotation' => true,
+
+        /* In method arguments and method call, there MUST NOT be a space before
+         * each comma and there MUST be one space after each comma. Argument
+         * lists MAY be split across multiple lines, where each subsequent line
+         * is indented once. When doing so, the first item in the list MUST be
+         * on the next line, and there MUST be only one argument per line. */
+        'method_argument_space' => [
+            /* Ensure every argument of a multiline argument list is on its own
+             * line. */
+            'ensure_fully_multiline' => true,
+        ],
+
+        /* Don't write conditions in Yoda style. */
+        'yoda_style' => false,
+
+        /*
+         * Additional settings.
+         */
+
+        /* Each line of multi-line DocComments must have an asterisk [PSR-5] and
+         * must be aligned with the first one. */
+        'align_multiline_comment' => ['comment_type' => 'all_multiline'],
+
+        /* A consistent array syntax should be used. As The minimum required PHP
+         * version is higher than 5.4, the short syntax `[]` will be used. */
+        'array_syntax' => ['syntax' => 'short'],
+
+        /* If a class implements more than one interface, each one may use its
+         * own line to fit the 80 column limit. */
+        'class_definition' => [
+            'singleItemSingleLine' => true,
+        ],
+
+        /* Using `isset(X) &&` or `unset` multiple times should be done in one
+         * call. */
+        'combine_consecutive_issets' => true,
+        'combine_consecutive_unsets' => true,
+
+        /* Multi-line whitespace before closing semicolon are prohibited. */
+        'no_multiline_whitespace_before_semicolons' => true,
+
+        /* Ordering use statements alphabetically. */
+        'ordered_imports' => ['sortAlgorithm' => 'alpha'],
+
+        /* Annotations in phpdocs should be ordered so that param annotations
+         * come first, then throws annotations, then return annotations. */
+        'phpdoc_order' => true,
+    ])
+    ->setIndent('    ');
