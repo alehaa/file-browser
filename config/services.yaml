@@ -33,6 +33,11 @@
 #   https://symfony.com/doc/current/best_practices/configuration.html\
 #     #application-related-configuration
 parameters:
+    # The storage directory. Thats were the files are located to be served by
+    # this application. Change this to any directory you want to serve. If the
+    # webserver doesn't restrict this, the storage directory may also be outside
+    # of the webroot.
+    storage.dir: '%kernel.project_dir%/files'
 
 services:
     # Default configuration for services in *this* file.
@@ -59,3 +64,8 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    # Setup additional parameters for the StorageLocator, as it uses parameters
+    # defined above in its constructor.
+    App\Service\StorageLocator:
+        arguments: ['%storage.dir%']

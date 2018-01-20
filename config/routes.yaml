@@ -38,3 +38,13 @@
 #
 # NOTE: Even if this file is empty, it is required by the Kernel and MUST NOT be
 #       removed.
+
+# Register the BrowserController.
+#
+# As the BrowserController implements catch-all routes, all other routes need to
+# be defined before the ones of this controller get defined. As this file gets
+# loaded last in the Kernel, this controller will be registered at the bottom of
+# this file.
+controllers:
+    resource: App\Controller\BrowserController
+    type: annotation

@@ -1,0 +1,9 @@
+<body>
+  {% for file in files %}
+    {% if file.type == 'dir' %}
+      <a href="{{ file.filename }}/">{{ file.filename }}</a><br/>
+    {% else %}
+      <a href="{{ file.filename }}">{{ file.filename }}</a><br/>
+    {% endif %}
+  {% endfor %}
+</body>
