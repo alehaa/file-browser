@@ -28,6 +28,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class BrowserController extends Controller
 {
     /**
+     * Generate the breadcrumbs for `$path`.
+     *
+     *
+     * @param string $path the path to be chunked into breadcrums
+     *
+     * @return array the breadcrumbs of `$path`
+     */
+    private static function getBreadcrumbs(?string $path): array
+    {
+        return array_map(function ($dir) {
+            static $tmp = '/';
+            $tmp .= $dir.'/';
+
+            return [
+                'name' => $dir,
+                'path' => $tmp,
+            ];
+        }, array_filter(explode('/', $path)));
+    }
+
+    /**
      * Index a directory.
      *
      * This route matches all directories (i.e. routes ending with a slash) and
@@ -50,7 +71,7 @@ class BrowserController extends Controller
      */
     public function index(
         StorageLocator $locator,
-        string $path = null
+        ?string $path
     ): Response {
         /* Get the absolute path of the directory inside the storage. If the
          * directory doesn't exist, a NotFoundHttpException will be thrown,
@@ -77,6 +98,7 @@ class BrowserController extends Controller
          * further handling of these may be done inside the template. */
         return $this->render('browser/index.html.twig', [
             'files' => $finder,
+            'breadcrumbs' => self::getBreadcrumbs($path),
         ]);
     }
 

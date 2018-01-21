@@ -23,36 +23,41 @@
  # SOFTWARE.
  #}
 
-{% extends "base.html.twig" %}
+{##
+ # Print a single breadcrumb.
+ #
+ # NOTE: This is an internal macro to be used by `print()`.
+ #
+ #
+ # @param string name   the name of the breadcrumb
+ # @param string url    the url of the breadcrumb
+ # @param string active wheter this breadcrumb is active or not
+ #}
+{% macro crumb(name, url, active) %}
+  <li class="breadcrumb-item{% if active %} active{% endif %}"{% if active %} aria-current="page"{% endif %}>
+    {% if not active %}
+      <a href="{{ url }}">{{ name }}</a>
+    {% else %}
+      {{ name }}
+    {% endif %}
+  </li>
+{% endmacro %}
 
-{% import "browser/_breadcrumbs.html.twig" as crumbs %}
-{% import "browser/_file_icons.html.twig" as icons %}
+{##
+ # Print the breadcrumbs.
+ #
+ #
+ # @param array breadcrumbs an array of breadcrumbs
+ #}
+{% macro print(breadcrumbs) %}
+  {% import _self as self %}
 
-
-{% block content %}
-<div class="container">
-  {{ crumbs.print(breadcrumbs) }}
-
-  <div class="row">
-    <div class="col">
-      <table class="table table-sm table-hover">
-        <tbody>
-          {% for file in files %}
-            <tr>
-              <td width="1px">
-                {{ icons.getIcon(file.type, file.extension|lower) }}
-              </td>
-              <td>
-                <a style="color: #000000;"
-                   href="{{ file.filename|escape('url') }}{% if file.type == 'dir' %}/{% endif %}">
-                  {{ file.filename }}
-                </a>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-{% endblock %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb" style="background: transparent; padding-left: 29px;">
+      {{ self.crumb('Home', '/', (breadcrumbs is empty)) }}
+      {% for crumb in breadcrumbs %}
+        {{ self.crumb(crumb.name, crumb.path, loop.last) }}
+      {% endfor %}
+    </ol>
+  </nav>
+{% endmacro %}

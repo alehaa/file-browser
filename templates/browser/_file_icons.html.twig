@@ -1,0 +1,79 @@
+{# This file is part of file-browser.
+ #
+ # Copyright (C)
+ #  2018 Alexander Haase <ahaase@alexhaase.de>
+ #
+ #
+ # Permission is hereby granted, free of charge, to any person obtaining a copy
+ # of this software and associated documentation files (the "Software"), to deal
+ # in the Software without restriction, including without limitation the rights
+ # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ # copies of the Software, and to permit persons to whom the Software is
+ # furnished to do so, subject to the following conditions:
+ #
+ # The above copyright notice and this permission notice shall be included in
+ # all copies or substantial portions of the Software.
+ #
+ # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ # SOFTWARE.
+ #}
+
+{##
+ # Print the file-type icon for a file.
+ #
+ # @param string type      the lowercase type of the file (dir | file)
+ # @param string extension the lowercase extension of the file
+ #}
+{% macro getIcon(type, extension) %}
+  {# First, check the type of the file. If the file actually is a directory,
+   # return the generic folder icon. #}
+  {% if type == 'dir' %}
+    <i class="fa fa-folder" aria-hidden="true"></i>
+
+  {# If the icon should be generated for a file, check the file extensions for
+   # available icons. #}
+  {% elseif extension in ['txt'] %}
+    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+
+  {% elseif extension == 'pdf' %}
+    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+
+  {% elseif extension in ['bmp', 'gif', 'jpeg', 'jpg', 'png', 'tif', 'tiff'] %}
+    <i class="fa fa-file-image-o" aria-hidden="true"></i>
+
+  {% elseif extension in ['aac', 'aiff', 'm4a', 'mp3', 'ogg', 'opus', 'wav'] %}
+    <i class="fa fa-file-audio-o" aria-hidden="true"></i>
+
+  {% elseif extension in ['amv', 'avi', 'flv', 'm4v', 'mkv', 'mov', 'mp4',
+                          'm4p', 'mpeg', 'mpg', 'ogv', 'vob', 'webm', 'wmv'] %}
+    <i class="fa fa-file-video-o" aria-hidden="true"></i>
+
+  {% elseif extension in ['7z', 'a', 'apk', 'ar', 'bin', 'bz2', 'cab', 'dmg',
+                          'gz', 'iso', 'jar', 'lz', 'lzma', 'lzo', 'pak',
+                          'partimg', 'rar', 's7z', 'tar', 'tbz2', 'tgz', 'tlz',
+                          'txz', 'xz', 'zip'] %}
+    <i class="fa fa-file-archive-o" aria-hidden="true"></i>
+
+  {% elseif extension in ['doc', 'docx', 'odt', 'rtf'] %}
+    <i class="fa fa-file-word-o" aria-hidden="true"></i>
+
+  {% elseif extension in ['csv', 'ods', 'xls', 'xlsx'] %}
+    <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+
+  {% elseif extension in ['odp', 'ppt', 'pptx'] %}
+    <i class="fa fa-file-powerpoint-o" aria-hidden="true"></i>
+
+  {% elseif extension in ['c', 'class', 'cpp', 'cs', 'h', 'hpp', 'hxx', 'java',
+                          'py', 'sh', 'swift', 'vb'] %}
+    <i class="fa fa-file-code-o" aria-hidden="true"></i>
+
+  {# If there's no matching icon, return the generic file icon instead. #}
+  {% else %}
+    <i class="fa fa-file-o" aria-hidden="true"></i>
+  {% endif %}
+{% endmacro %}
