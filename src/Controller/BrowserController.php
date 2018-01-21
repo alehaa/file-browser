@@ -5,7 +5,10 @@ namespace App\Controller;
 use App\Service\StorageLocator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -75,5 +78,50 @@ class BrowserController extends Controller
         return $this->render('browser/index.html.twig', [
             'files' => $finder,
         ]);
+    }
+
+    /**
+     * Serve a file.
+     *
+     * This route matches all files (i.e. routes *NOT* ending with a slash) and
+     * will return the file with additional headers set.
+     *
+     *
+     * @param StorageLocator $locator the storage locator to be used
+     * @param string         $path    the file to be served
+     *
+     * @throws NotFoundHttpException the file doesn't exist
+     *
+     * @return BinaryFileResponse response containing the file
+     * @return RedirectResponse   redirect to the directory's index, if `$path`
+     *                            is a directory
+     *
+     * @Route(
+     *     "/{path}",
+     *     requirements={"path": ".+"}
+     * )
+     */
+    public function serveFile(StorageLocator $locator, string $path): Response
+    {
+        /* Get the absolute path of the file. If the file doesn't exist, a
+         * NotFoundHttpException will be thrown, resulting in an error 404. */
+        $file = $locator->getAbsolutePath($path);
+        if (!file_exists($file)) {
+            throw new NotFoundHttpException(sprintf(
+                "File '%s' doesn't exist in the storage.",
+                $path
+            ));
+        }
+
+        /* If the file is a directory, redirect the user to the directory
+         * listing for this directory instead of throwing an error 404. */
+        if (is_dir($file)) {
+            return $this->redirect('/'.$path.'/');
+        }
+
+        /* Return a response to serve the required file. The disposition will be
+         + inline, so the user is able to watch the file inside the browser, if
+         * the browser supports the filetype. */
+        return $this->file($file, null, ResponseHeaderBag::DISPOSITION_INLINE);
     }
 }
