@@ -1,0 +1,56 @@
+/* This file is part of file-browser.
+ *
+ * Copyright (C)
+ *  2018 Alexander Haase <ahaase@alexhaase.de>
+ *
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+/**
+ * This file configures the header navbar. There will be only slight differences
+ * from bootstrap's default navbar: the background is green with white text.
+ *
+ * NOTE: This class should be used together with the `navbar` class.
+ */
+
+/**
+ * The height of the header navbar.
+ */
+@header-height: 24px;
+
+.header {
+    background-color: @green;
+    color:            @white;
+
+    /* The default bootstrap navbar is higher than we'd like to have it. The
+     * following snippet will minimize it to the configured height above.
+     *
+     * This snippet is based on an answer (https://stackoverflow.com/a/25093300)
+     * of Hoang Vu Tgtt (https://stackoverflow.com/users/1804068) at
+     * stackoverlow.com, licensed under CC-BY-SA 3.0. */
+    min-height: @header-height;
+
+    .navbar-brand {
+        padding:     0 @header-height / 3;
+        font-size:   @header-height * 2/3;
+        line-height: @header-height;
+        height:      @header-height;
+    }
+}

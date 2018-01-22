@@ -1,5 +1,8 @@
+/node_modules
+/public/assets
 composer.lock
 symfony.lock
+yarn.lock
 
 ###> symfony/framework-bundle ###
 .env

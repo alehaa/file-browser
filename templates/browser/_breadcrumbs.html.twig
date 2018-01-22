@@ -53,7 +53,7 @@
   {% import _self as self %}
 
   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb" style="background: transparent; padding-left: 29px;">
+    <ol class="breadcrumb">
       {{ self.crumb('Home', '/', (breadcrumbs is empty)) }}
       {% for crumb in breadcrumbs %}
         {{ self.crumb(crumb.name, crumb.path, loop.last) }}

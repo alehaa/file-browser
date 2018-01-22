@@ -40,12 +40,13 @@
         href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
         crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/theme.css">
 </head>
 
-<body style="background: #eeeeee;">
-  <nav class="navbar sticky-top bg-dark">
+<body>
+  <nav class="header navbar sticky-top">
     <div class="container">
-      <div class="navbar-brand text-white">
+      <div class="navbar-brand">
         <i class="fa fa-files-o" aria-hidden="true"></i>
         File browser
       </div>
@@ -55,7 +56,7 @@
   {% block content %}
   {% endblock %}
 
-  <footer class="footer navbar fixed-bottom">
+  <footer class="footer navbar">
     <div class="container">
       <div class="col text-right text-muted text-small">
         <small>

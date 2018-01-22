@@ -39,12 +39,11 @@
         <tbody>
           {% for file in files %}
             <tr>
-              <td width="1px">
+              <td class="td-fit">
                 {{ icons.getIcon(file.type, file.extension|lower) }}
               </td>
-              <td>
-                <a style="color: #000000;"
-                   href="{{ file.filename|escape('url') }}{% if file.type == 'dir' %}/{% endif %}">
+              <td class="filename">
+                <a href="{{ file.filename|escape('url') }}{% if file.type == 'dir' %}/{% endif %}">
                   {{ file.filename }}
                 </a>
               </td>
